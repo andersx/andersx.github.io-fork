@@ -56,7 +56,7 @@ Det burde være alt der skal til!
 
 ---
 
-- Check at din computer har fået tildelt en offentlig IPv6 adresse f.eks. `nmcli device show | grep IP6`
+- Check at din computer har fået en IPv6 adresse f.eks. `nmcli device show | grep IP6` i terminalen:
 
 ```
 $ nmcli device show | grep IP6
@@ -78,7 +78,7 @@ IP6.ROUTE[1]:                           dst = ::1/128, nh = ::, mt = 256
 
 ---
 
-For at teste at IPv6 virker korrekt kan du f.eks. bruge [sikkerpånettet.dk](https://da.sikkerpånettet.dk/connection/).
+For at teste at IPv6 virker korrekt kan du f.eks. bruge [sikkerpånettet.dk/connection/](https://da.sikkerpånettet.dk/connection/).
 
 ![Sikker På Nettet]({{ site.baseurl }}/assets/images/sikker-paa-nettet-ipv6.png)
 
