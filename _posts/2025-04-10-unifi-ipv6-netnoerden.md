@@ -12,6 +12,8 @@ Routeren er tilsluttet direkte fra sit **WAN-stik til en LAN-port** i fiberbokse
 
 Alt konfigureres direkte i UniFi Network-appen, og det var **ikke nødvendigt at genstarte routeren** undervejs — heller ikke ved skiftet fra min tidligere udbyder (Hiper) til NetNørden.
 
+Du kan også trykke her for at se min guide til [**opsætning af IPv6 hos Hiper**](https://andersx.dk/guides/networking/ubiquiti/2025/03/16/dk-unifi-hiper.html).
+
 ---
 
 ## Opsætning af WAN med IPv4 og IPv6
