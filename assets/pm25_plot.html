@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Humidity Plot</title>
+  <script src="https://cdn.plot.ly/plotly-2.27.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3/build/global/luxon.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background-color: #111;
+    }
+    #plot {
+      background-color: #111;
+    }
+  </style>
+</head>
+<body>
+  <div id="plot" style="width:100vw; height:100vh;"></div>
+  <script>
+    const { DateTime } = luxon;
+  
+    const DATA_URL = `https://raw.githubusercontent.com/andersx/data-upload/refs/heads/master/display_sensor_data.csv?cache_bust=${Date.now()}`;
+
+    fetch(DATA_URL)
+      .then(response => response.text())
+      .then(text => {
+        const lines = text.trim().split("\n");
+        const timestamps = [];
+        const pm25 = [];
+
+        const headers = lines.shift().split(",");
+        const timeIndex = headers.indexOf("_time");
+        const pm25Index = headers.indexOf("pm2_5");
+
+        for (let line of lines) {
+          const fields = line.split(",");
+          const utcTime = fields[timeIndex];
+          const value = fields[pm25Index];
+
+          if (utcTime && value) {
+            const localTime = DateTime.fromISO(utcTime, { zone: "utc" }).setZone("Europe/Copenhagen");
+            timestamps.push(localTime.toISO());
+            pm25.push(parseFloat(value));
+          }
+        }
+
+        const trace = {
+          x: timestamps,
+          y: pm25,
+          mode: "lines+markers",
+          type: "scatter",
+          name: "PM2.5"
+        };
+    
+        const layout = {
+          title: {
+            text: "PM2.5 Levels in Tårnby, near Copenhagen Airport",
+            font: { color: "#fff" }
+          },
+          xaxis: {
+            title: "Timestamp",
+            color: "#fff",
+            gridcolor: "#333"
+          },
+          yaxis: {
+            title: "PM2.5 (μg/m³)",
+            color: "#fff",
+            gridcolor: "#333"
+          },
+          plot_bgcolor: "#111",
+          paper_bgcolor: "#111",
+          font: {
+            color: "#fff"
+          },
+          height: 600,
+            shapes: [
+        {
+          type: "line",
+          xref: "paper",
+          x0: 0,
+          x1: 1,
+          y0: 10,
+          y1: 10,
+          line: {
+            color: "green",
+            width: 2,
+            dash: "dash",
+            opacity: 0.5
+          }
+        },
+        {
+          type: "line",
+          xref: "paper",
+          x0: 0,
+          x1: 1,
+          y0: 20,
+          y1: 20,
+          line: {
+            color: "yellow",
+            width: 2,
+            dash: "dash",
+            opacity: 0.5
+          }
+        },
+        {
+          type: "line",
+          xref: "paper",
+          x0: 0,
+          x1: 1,
+          y0: 30,
+          y1: 30,
+          line: {
+            color: "orange",
+            width: 2,
+            dash: "dash",
+            opacity: 0.5
+          }
+        },
+        {
+          type: "line",
+          xref: "paper",
+          x0: 0,
+          x1: 1,
+          y0: 50,
+          y1: 50,
+          line: {
+            color: "red",
+            width: 2,
+            dash: "dash",
+            opacity: 0.5
+          }
+        }
+      ],
+      annotations: [
+        {
+          xref: "paper",
+          x: 1.01,
+          y: 10,
+          xanchor: "left",
+          text: "Low (10)",
+          showarrow: false,
+          font: { color: "green", size: 12 }
+        },
+        {
+          xref: "paper",
+          x: 1.01,
+          y: 20,
+          xanchor: "left",
+          text: "Moderate (20)",
+          showarrow: false,
+          font: { color: "yellow", size: 12 }
+        },
+        {
+          xref: "paper",
+          x: 1.01,
+          y: 30,
+          xanchor: "left",
+          text: "High (30)",
+          showarrow: false,
+          font: { color: "orange", size: 12 }
+        },
+        {
+          xref: "paper",
+          x: 1.01,
+          y: 50,
+          xanchor: "left",
+          text: "Very High (50)",
+          showarrow: false,
+          font: { color: "red", size: 12 }
+        }
+      ]
+    };
+
+    Plotly.newPlot('plot', [trace], layout);
+  })
+  .catch(error => {
+    document.getElementById("plot").innerText = "Failed to load data.";
+    console.error("Error loading CSV:", error);
+  });
+
+  </script>
+</body>
+</html>
