@@ -9,40 +9,57 @@ The plot below shows real-time PM2.5 levels measured in my area. This page updat
 
 <iframe src="/assets/pm25_plot.html" width="100%" height="650" style="border:none;"></iframe>
 
-## Live Air Pollution Monitoring
+I live close to Copenhagen Airport, and I about the local air quality, particularly due to particle emissions from aircrafts and woodburners, both of which are common around here.
 
-I live close to Copenhagen Airport, and I’ve been curious — and increasingly concerned — about the local air quality, particularly due to particle emissions from aircraft. This project is my attempt to monitor the environment right outside my door.
+This project is my attempt to monitor the environment right outside my door, and to raise awarenss.
 
 According to the Danish Ministry of the Environment, an estimated **4,000 Danes die prematurely every year** due to air pollution--that's more than 10 people every day.
 
 > [Ny rapport: Bedre luftkvalitet medfører 380 færre for tidlige dødsfald pga. luftforurening (Miljøministeriet, marts 2025)](https://mim.dk/nyheder/pressemeddelelser/2025/marts/ny-rapport-bedre-luftkvalitet-medfoerer-380-faerre-for-tidlige-doedsfald-pga-luftforurening)
 
-**Air pollution has serious consequences** — it increases the risk of asthma, lung cancer, heart disease, and strokes. And it’s not just a problem in big cities. Even suburban areas near airports or highways can have elevated levels of particulate matter.
+I am working on open source hardware and software to make this project accessible to everyone.
+The goal is to create a low-cost air quality monitoring system that can report from multiple locations, and to make the data available to the public.
+
+Right now, I am sharing the data from my prototype (see below), but I am also working on a more robust version that will be deployed outdoors.
+
+I've designed a PCB that is being manufactured, and I need to do more testing before I can deploy more measureing stations.
 
 ---
 
 ## What is PM2.5?
 
-**PM2.5** refers to fine particulate matter that is 2.5 micrometers or smaller in diameter. These particles are small enough to penetrate deep into your lungs and even enter your bloodstream. Sources include vehicle exhaust, industrial processes — and notably, aircraft emissions.
+I'm focusing on a specific type of air pollution: **PM2.5**.
+PM2.5 refers to fine particulate matter that is 2.5 micrometers or smaller in diameter. 
+These particles are small enough to penetrate deep into your lungs and even enter your bloodstream.
+
+The reason that I am focusing on PM2.5 is a good measure of particle pollution, and it is also realitvely easy to measure.
+I'm currently using a **PMS5003** sensor, which is a low-cost laser-based sensor that can measure PM2.5 and PM10 levels.
+
+If you are interested you can read a scientific review of the PMS5003 sensor here: 
+> [Nam H. Nguyen, Huy X. Nguyen, Thuan T. B. Le, Chinh D. Vu,
+published by Open Journal of Air Pollution, Vol.10 No.1, 2021](https://doi.org/10.4236/ojap.2021.101001).
+
+For practical purposes the accuracy is about ±10% for PM2.5, which is more than sufficient for this project - simply to determine whether the air quality is mostly good or bad.
 
 ---
 
 ## How It Works
 
-This is a fully DIY solution built with open-source tools and low-cost hardware:
+This is a custom solution built with open-source tools and low-cost hardware:
 
-- I'm using an **ESP32** microcontroller connected to a **PMS5003** particle sensor.
+- I'm using an **ESP32** microcontroller connected to the **PMS5003** particle sensor.
+  - The PMS5003 sensor continuously measures particle levels and sends the data to the ESP32.
 - The ESP32 pushes data to a **bucket on InfluxDB Cloud** every few minutes.
-- A **cron job on my Raspberry Pi** pulls this data, processes it with a Python script, and uploads it to a **public GitHub repository**.
-- This blog then loads the latest CSV data and renders it using **Plotly.js** in your browser.
-
-Simple. Cheap. Open.
+- A simple**cron job on my Raspberry Pi** pulls this data periodically, processes it, and uploads it to a [public GitHub repository](https://github.com/andersx/data-upload).
+- This blog then loads the latest data from that github repo and serves it in the plot above. 
 
 ---
 
 ## Future Plans
 
-I'm currently working on a **custom PCB** to integrate everything into a more compact and robust form factor:
+My plan is to monitor the air quality from several locations on Amager, and to make the data available to the public.
+
+To make this possible, I'm currently working on a custom PCB to integrate everything.
 
 - It will include the PMS5003, an ESP32, and support for a small LCD display.
 - I'm also designing a **3D-printed enclosure** to make the sensor weatherproof and mountable outdoors.
@@ -50,13 +67,14 @@ I'm currently working on a **custom PCB** to integrate everything into a more co
 
 ![PCB Prototype]({{ site.baseurl }}/assets/images/pcbway.jpg)
 
-I designed the board in **KiCAD**, and it's currently being fabricated by **PCBWay**.
+I designed the board in KiCAD, and it's currently being fabricated by PCBWay.
+
 
 ---
 
 ## Photos of the Current Setup
 
-Here’s the current test setup, mounted in my garden:
+Here’s the current test setup, mounted under my soffit:
 
 ![Open Weatherstation]({{ site.baseurl }}/assets/images/open_weatherstation.jpg)
 
@@ -66,7 +84,6 @@ And here’s the final version enclosed and deployed:
 
 ---
 
-**Stay tuned!** I’ll be posting updates as the hardware evolves and more sensors are added — maybe even CO₂ and NOx in the future.
 
 *– Anders*
 
