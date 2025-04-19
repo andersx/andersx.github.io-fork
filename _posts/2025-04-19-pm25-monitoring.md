@@ -9,15 +9,15 @@ The plot below shows real-time PM2.5 levels measured in my area. This page updat
 
 <iframe src="/assets/pm25_plot.html" width="100%" height="650" style="border:none;"></iframe>
 
-I live close to Copenhagen Airport, and I about the local air quality, particularly due to particle emissions from aircrafts and woodburners, both of which are common around here.
-
-This project is my attempt to monitor the environment right outside my door, and to raise awarenss.
+I live close to Copenhagen Airport, and I care about the local air quality.
+The pollution in this area particularly due to particle emissions from aircrafts and woodburners.
+This project is my attempt to monitor the environment on Amager, and to raise awarenss.
 
 According to the Danish Ministry of the Environment, an estimated **4,000 Danes die prematurely every year** due to air pollution--that's more than 10 people every day.
 
 > [Ny rapport: Bedre luftkvalitet medfører 380 færre for tidlige dødsfald pga. luftforurening (Miljøministeriet, marts 2025)](https://mim.dk/nyheder/pressemeddelelser/2025/marts/ny-rapport-bedre-luftkvalitet-medfoerer-380-faerre-for-tidlige-doedsfald-pga-luftforurening)
 
-I am working on open source hardware and software to make this project accessible to everyone.
+I am working on open-source hardware and software to make this project possible.
 The goal is to create a low-cost air quality monitoring system that can report from multiple locations, and to make the data available to the public.
 
 Right now, I am sharing the data from my prototype (see below), but I am also working on a more robust version that will be deployed outdoors.
@@ -33,7 +33,25 @@ PM2.5 refers to fine particulate matter that is 2.5 micrometers or smaller in di
 These particles are small enough to penetrate deep into your lungs and even enter your bloodstream.
 
 The reason that I am focusing on PM2.5 is a good measure of particle pollution, and it is also realitvely easy to measure.
-I'm currently using a **PMS5003** sensor, which is a low-cost laser-based sensor that can measure PM2.5 and PM10 levels.
+
+### What is measured?
+
+The PM2.5 levels are measured in micrograms per cubic meter of air (µg/m³) .
+[The World Health Organization (WHO) recommends](https://www.who.int/news-room/feature-stories/detail/what-are-the-who-air-quality-guidelines) that PM2.5 levels should not exceed **5 µg/m³** as an annual mean, and **10 µg/m³** as a 24-hour mean.
+
+As you can probably see from the plot above, the levels in my area are often much higher than this.
+
+During the winter months, when the air quality is often poor due to woodburning in private households.
+Woodburners are the single largest source of PM2.5 emissions in Denmark, and they are responsible for about 43% of the total PM2.5 emissions in the country according the Danish Ministry of the Environment.
+
+In the summer, the levels are mostly affected by emmisions from the airport, and will depend heavily on the wind direction.
+
+One goal of this project is to collect the data do document this and estimate the health effects.
+
+
+### What hardware am I using?
+
+I'm currently using a [**PMS5003**](https://www.plantower.com/en/products_33/74.html) sensor, which is a low-cost laser-based sensor that can measure PM1.0, PM2.5, and PM10 levels.
 
 If you are interested you can read a scientific review of the PMS5003 sensor here: 
 > [Nam H. Nguyen, Huy X. Nguyen, Thuan T. B. Le, Chinh D. Vu,
