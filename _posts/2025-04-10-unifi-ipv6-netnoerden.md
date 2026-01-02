@@ -26,7 +26,9 @@ Du kan også trykke her for at se min guide til [**opsætning af IPv6 hos Hiper*
 4. Din **IPv4 Configuration** burde virke med indstillingen fra **Auto**, intet at ændre her.
 5. Under **IPv6 Configuration**, vælg:
    - **IPv6 Connection**: `DHCPv6`
-   - **Prefix Delegation Size**: `48` (NetNørden bruger /48)
+   - **Prefix Delegation Size**: ~~`48` (NetNørden bruger /48)~~
+     - `Auto` - NetNørden tildeler dynamisk prefix `/56` (Updated December 2025)
+   - **DNS Servers**: `Auto`
 
 6. Klik på **Apply Changes** og vent — din router bør få tildelt en offentlig IPv6-adresse med det samme.
    Jeg skulle hverken genstarte eller unplugge routeren, før det virkede - fantastisk!
