@@ -47,23 +47,14 @@ Unfortunately, there is no PPA available for ubuntu 24.04 LTS at the moment that
 
 So go to [https://github.com/lutris/lutris/releases](https://github.com/lutris/lutris/releases) and download the latest `.deb` file.
 
-Now, install some dependencies:
+Now, install some dependencies for Lutris and Wine to function:
 ```bash
 sudo dpkg --add-architecture i386
 sudo apt update
 sudo apt install libgl1:i386 libgl1-mesa-dri:i386 libgnutls30:i386 mesa-vulkan-drivers:i386 python3-protobuf protobuf-compiler wine
 ```
 
-Then install Lutris using `dpkg` (adjust the filename if a newer version is available):
-
-```bash
-sudo dpkg -i ~/Downloads/lutris_0.5.18_all.deb
-```
-If you get complaints about missing dependencies, run:
-```bash
-sudo apt --fix-broken install
-```
-You can also use `apt` to install the `.deb` file, which will automatically resolve dependencies:
+You can use `apt` to install the `.deb` file, which will automatically resolve the dependencies for the `.deb` file:
 ```bash
 sudo apt update
 sudo apt install ~/Downloads/lutris_0.5.18_all.deb  # Note the absolute path 
