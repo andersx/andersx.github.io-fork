@@ -239,7 +239,7 @@ $$
 $$
 
 To further simplify things for the unitless Gaussian kernel, the self-kernel 
-<span>$\mathpzc{k}^{\text{unitless}}\left( \mathbf{x}_*, \mathbf{x}_*\right)$</span>
+<span>$$\mathpzc{k}^{\text{unitless}}\left( \mathbf{x}_*, \mathbf{x}_*\right)$$</span>
 is always 1, so the predictive variance simplifies to a very simple form:
 
 $$
