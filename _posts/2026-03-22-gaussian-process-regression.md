@@ -261,7 +261,7 @@ from scipy.linalg import cho_factor, cho_solve, solve_triangular
 from qmllib.kernels import gaussian_kernel 
 
 # --- Prediction at a test point ---
-# k_star is the n_train x 1_test covariance vector between x_* and training points
+# K_star is the n_train x n_test covariance vector between x_* and training points
 K_star = gaussian_kernel(X_train, X_test, 2.0)
 
 # Predictive mean
