@@ -227,10 +227,12 @@ $$
 \mathpzc{k}^{\text{scaled}}(\mathbf{x}, \mathbf{x}') = \sigma_f^2 \exp\left(-\frac{\|\mathbf{x} - \mathbf{x}'\|^2}{2l^2}\right).
 $$
 
-So GPR expects, where as in e.g. KRR, the kernel is often defined without the signal variance factor.
+GPR expects the signal variance factor, whereas in e.g. KRR, the kernel is defined without it.
 
-
-If you just want to work with a "normal", _unitless_ kernel, for example the Gaussian: $\mathpzc{k}^{\text{unitless}}(\mathbf{x}, \mathbf{x}') = \exp\left(-\frac{\|\mathbf{x} - \mathbf{x}'\|^2}{2l^2}\right)$, then the equations change slightly. The predictive mean is still <span>$\hat{y}_* = \mathbf{k}_*^\top \alpha$</span>, since the "missing" scaling is absorbed into $\alpha$ during training.
+So, if you just want to work with a "normal", _unitless_ kernel, for example the Gaussian: $\mathpzc{k}^{\text{unitless}}(\mathbf{x}, \mathbf{x}') = \exp\left(-\frac{\|\mathbf{x} - \mathbf{x}'\|^2}{2l^2}\right)$, then the equations change slightly.
+The predictive mean is still 
+$$\hat{y}_* = \mathbf{k}_*^\top \alpha$$,
+since the "missing" scaling is absorbed into $\alpha$ during training.
 
 However, the predictive variance is missing the signal variance factor, so we need to add it back in explicitly, and the predictive variance becomes:
 
