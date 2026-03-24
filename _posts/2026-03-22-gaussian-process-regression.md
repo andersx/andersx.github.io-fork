@@ -104,16 +104,18 @@ import numpy as np
 from scipy.linalg import cho_factor, cho_solve
 from qmllib.kernels import gaussian_kernel 
 
-K = gaussian_kernel(X_train, X_train, 2.0)
+# X_train = test set representation matrix, ell = lenght scalce of kernel (l)
+# K is the n_train x n_train kernel matrix over the training data
+K = gaussian_kernel(X_train, X_train, ell)
 
 # Add regularization / observation noise to the diagonal
 K[np.diag_indices_from(K)] += lambda_
 
 # Cholesky factorization - save this one for later
-c, lower = cho_factor(K, lower=True)
+L, lower = cho_factor(K, lower=True)
 
 # Solve (K + lambda I) alpha = y
-alpha = cho_solve((c, lower), y)
+alphas = cho_solve((L, lower), y)
 ```
 
 #### A useful shortcut for the training residual
@@ -259,21 +261,21 @@ Putting it all together, here is a complete example of the variance estimation a
 
 ```python
 import numpy as np
-from scipy.linalg import cho_factor, cho_solve, solve_triangular
+from scipy.linalg import solve_triangular
 from qmllib.kernels import gaussian_kernel 
 
 # --- Prediction at a test point ---
 # K_star is the n_train x n_test covariance vector between x_* and training points
-K_star = gaussian_kernel(X_train, X_test, 2.0)
+K_star = gaussian_kernel(X_train, X_test, ell)
 
-# Predictive mean
-y_pred = K_star @ alpha
+# Predictive mean for test points
+y_pred = K_star.T @ alphas
 
 # MLE estimate of signal variance
-sigma_f_sq = y @ alpha / len(y)
+sigma_f_sq = y @ alphas / len(y)
 
-# Predictive variance
-v = solve_triangular(c, K_star, lower=True)
+# Predictive variance for test points
+v = solve_triangular(L, K_star, lower=True)
 var_pred = sigma_f_sq * (np.ones(n_test) - np.sum(v**2, axis=0))
 ```
 
